@@ -24,6 +24,8 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                   {% if user.is_authenticated %}
+                  <li><a href="{% url 'contribution_create' %}">Add Contribution</a></li>
+                  <li><a href="{% url 'pledge_create' %}">Add Pledge</a></li>
                   <li><a href="{% url 'auth_logout' %}">Logout</a></li>
                   {% else %}
                   <li><a href="{% url 'auth_login' %}">Login</a></li>
