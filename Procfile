@@ -1,0 +1,1 @@
+web: gunicorn warmthemall.wsgi --log-file -
