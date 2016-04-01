@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for pledge in object_list %}
+<div class="panel">
+  <h3>{{ pledge.amount }}</h3>
+  <p>Pledged by {{ pledge.user.username }} on {{ pledge.date }}</p>
+</div>
+{% endfor %}
+{% endblock %}

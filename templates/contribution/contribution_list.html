@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for contribution in object_list %}
+<div class="panel">
+  <h3>{{ contribution.amount }}</h3>
+  <p>Donated by {{ contribution.user.username }} on {{ contribution.date }}</p>
+  <p>Details about the donations: {{ contribution.notes }}</p>
+</div>
+{% endfor %}
+{% endblock %}

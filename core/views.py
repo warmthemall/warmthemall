@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView
 from django.core.urlresolvers import reverse_lazy
 from .models import *
 
@@ -10,7 +10,7 @@ class PledgeCreateView(CreateView):
   model = Pledge
   template_name = "pledge/pledge_form.html"
   fields = ['amount']
-  success_url = reverse_lazy('home')
+  success_url = reverse_lazy('pledge_list')
 
   def form_valid(self,form):
     form.instance.user = self.request.user
@@ -20,10 +20,17 @@ class ContributionCreateView(CreateView):
   model = Contribution
   template_name = "contribution/contribution_form.html"
   fields = ['amount', 'notes']
-  success_url = reverse_lazy('home')
+  success_url = reverse_lazy('contribution_list')
 
   def form_valid(self,form):
     form.instance.user = self.request.user
     return super(ContributionCreateView, self).form_valid(form)
 
+class PledgeListView(ListView):
+  model = Pledge
+  template_name = "pledge/pledge_list.html"
+
+class ContributionListView(ListView):
+  model = Contribution
+  template_name = "contribution/contribution_list.html"
 # Create your views here.

@@ -10,4 +10,6 @@ urlpatterns = patterns('',
     url(r'^user/', include('django.contrib.auth.urls')),
     url(r'^contribution/create/$', ContributionCreateView.as_view(), name='contribution_create'),
     url(r'^pledge/create/$', PledgeCreateView.as_view(), name='pledge_create'),
+    url(r'^contribution/$', ContributionListView.as_view(), name='contribution_list'),
+    url(r'^pledge/$', PledgeListView.as_view(), name='pledge_list'),
 )
