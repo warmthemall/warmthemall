@@ -16,4 +16,6 @@ urlpatterns = patterns('',
     url(r'^pledge/(?P<pk>\d+)/$', login_required(PledgeDetailView.as_view()), name='pledge_detail'),
     url(r'^contribution/update/(?P<pk>\d+)/$', login_required(ContributionUpdateView.as_view()), name='contribution_update'),
     url(r'^pledge/update/(?P<pk>\d+)/$', login_required(PledgeUpdateView.as_view()), name='pledge_update'),
+    url(r'^contribution/delete/(?P<pk>\d+)/$', login_required(ContributionDeleteView.as_view()), name='contribution_delete'),
+    url(r'^pledge/delete/(?P<pk>\d+)/$', login_required(PledgeDeleteView.as_view()), name='pledge_delete'),
 )

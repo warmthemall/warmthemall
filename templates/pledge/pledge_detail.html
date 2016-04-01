@@ -4,5 +4,6 @@
 <p>Pledged by {{ pledge.user.username }} on {{ pledge.date }}</p>
 {% if pledge.user == user %}
 <p><a href="{% url 'pledge_update' pk=pledge.id %}">Edit Pledge</a></p>
+<p><a href="{% url 'pledge_delete' pk=pledge.id %}">Delete Pledge</a></p>
 {% endif %}
 {% endblock %}

@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from .models import *
+from django.core.exceptions import PermissionDenied
 
 
 # Create your views here.
@@ -54,3 +55,13 @@ class ContributionUpdateView(UpdateView):
   model = Contribution
   template_name = 'contribution/contribution_form.html'
   fields = ['amount', 'notes']
+
+class PledgeDeleteView(DeleteView):
+  model = Pledge
+  template_name = 'pledge/pledge_confirm_delete.html'
+  success_url = reverse_lazy('pledge_list')
+
+class ContributionDeleteView(DeleteView):
+  model = Contribution
+  template_name = 'contribution/contribution_confirm_delete.html'
+  success_url = reverse_lazy('contribution_list')
