@@ -8,9 +8,6 @@ class Pledge(models.Model):
   date = models.DateField(auto_now_add=True)
   user = models.ForeignKey(User)
 
-  def __unicode__(self):
-    return self.title
-
   def get_absolute_url(self):
     return reverse("pledge_detail", args=[self.id])
 
@@ -21,7 +18,7 @@ class Contribution(models.Model):
   user = models.ForeignKey(User)
 
   def __unicode__(self):
-    return self.title
+    return self.notes
 
   def get_absolute_url(self):
     return reverse("contribution_detail", args=[self.id])
