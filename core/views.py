@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView
 from django.core.urlresolvers import reverse_lazy
 from .models import *
+
+
+# Create your views here.
 
 class Home(TemplateView):
   template_name = "home.html"
@@ -33,4 +36,12 @@ class PledgeListView(ListView):
 class ContributionListView(ListView):
   model = Contribution
   template_name = "contribution/contribution_list.html"
-# Create your views here.
+
+class PledgeDetailView(DetailView):
+  model = Pledge
+  template_name = 'pledge/pledge_detail.html'
+
+class ContributionDetailView(DetailView):
+  model = Contribution
+  template_name = 'contribution/contribution_detail.html'
+

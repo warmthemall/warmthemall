@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Pledged to donate: {{ pledge.amount }}</h1>
+<p>Pledged by {{ pledge.user.username }} on {{ pledge.date }}</p>
+{% endblock %}
