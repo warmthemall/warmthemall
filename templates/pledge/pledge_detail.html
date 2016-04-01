@@ -2,4 +2,7 @@
 {% block content %}
 <h1>Pledged to donate: {{ pledge.amount }}</h1>
 <p>Pledged by {{ pledge.user.username }} on {{ pledge.date }}</p>
+{% if pledge.user == user %}
+<p><a href="{% url 'pledge_update' pk=pledge.id %}">Edit Pledge</a></p>
+{% endif %}
 {% endblock %}

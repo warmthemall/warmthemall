@@ -14,4 +14,6 @@ urlpatterns = patterns('',
     url(r'^pledge/$', PledgeListView.as_view(), name='pledge_list'),
     url(r'^contribution/(?P<pk>\d+)/$', ContributionDetailView.as_view(), name='contribution_detail'),
     url(r'^pledge/(?P<pk>\d+)/$', PledgeDetailView.as_view(), name='pledge_detail'),
+    url(r'^contribution/update/(?P<pk>\d+)/$', ContributionUpdateView.as_view(), name='contribution_update'),
+    url(r'^pledge/update/(?P<pk>\d+)/$', PledgeUpdateView.as_view(), name='pledge_update'),
 )

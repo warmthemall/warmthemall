@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView, DetailView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 from .models import *
 
@@ -45,3 +45,12 @@ class ContributionDetailView(DetailView):
   model = Contribution
   template_name = 'contribution/contribution_detail.html'
 
+class PledgeUpdateView(UpdateView):
+  model = Pledge
+  template_name = 'pledge/pledge_form.html'
+  fields = ['amount']
+
+class ContributionUpdateView(UpdateView):
+  model = Contribution
+  template_name = 'contribution/contribution_form.html'
+  fields = ['amount', 'notes']

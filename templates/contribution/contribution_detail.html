@@ -3,4 +3,7 @@
 <h1>{{ contribution.amount }} donations made</h1>
 <p>Details about the contribution: {{ contribution.notes }}</p>
 <p>Donated by {{ contribution.user.username }} as of {{ contribution.date }}</p>
+{% if contribution.user == user %}
+<p><a href="{% url 'contribution_update' pk=contribution.id %}">Edit Contribution</a></p>
+{% endif %}
 {% endblock %}
