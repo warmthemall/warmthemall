@@ -3,7 +3,7 @@
 {% for contribution in object_list %}
 <div class="panel">
   <h3><a href="{{ contribution.get_absolute_url }}">{{ contribution.amount }}</a></h3>
-  <p>Donated by {{ contribution.user.username }} on {{ contribution.date }}</p>
+  <p>Donated by <a href="{% url 'user_detail' slug=contribution.user.username %}">{{ contribution.user.username }}</a> on {{ contribution.date }}</p>
   <p>Details about the donations: {{ contribution.notes }}</p>
 </div>
 {% endfor %}

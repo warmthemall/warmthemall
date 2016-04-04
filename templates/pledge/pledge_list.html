@@ -3,7 +3,7 @@
 {% for pledge in object_list %}
 <div class="panel">
   <h3><a href="{{ pledge.get_absolute_url }}">{{ pledge.amount }}</a></h3>
-  <p>Pledged by {{ pledge.user.username }} on {{ pledge.date }}</p>
+  <p>Pledged by <a href="{% url 'user_detail' slug=pledge.user.username %}">{{ pledge.user.username }}</a> on {{ pledge.date }}</p>
 </div>
 {% endfor %}
 {% endblock %}
