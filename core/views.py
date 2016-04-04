@@ -51,17 +51,47 @@ class PledgeUpdateView(UpdateView):
   template_name = 'pledge/pledge_form.html'
   fields = ['amount']
 
+  def get_object(self, *args, **kwargs):
+    object = super(PledgeUpdateView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
+
 class ContributionUpdateView(UpdateView):
   model = Contribution
   template_name = 'contribution/contribution_form.html'
   fields = ['amount', 'notes']
+
+  def get_object(self, *args, **kwargs):
+    object = super(ContributionUpdateView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
 
 class PledgeDeleteView(DeleteView):
   model = Pledge
   template_name = 'pledge/pledge_confirm_delete.html'
   success_url = reverse_lazy('pledge_list')
 
+  def get_object(self, *args, **kwargs):
+    object = super(PledgeDeleteView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
+
 class ContributionDeleteView(DeleteView):
   model = Contribution
   template_name = 'contribution/contribution_confirm_delete.html'
   success_url = reverse_lazy('contribution_list')
+
+  def get_object(self, *args, **kwargs):
+    object = super(ContributionDeleteView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
+
+class UserDetailView(DetailView):
+  model = User
+  slug_field = 'username'
+  template_name = 'user/user_detail.html'
+  context_object_name = 'user_in_view'
