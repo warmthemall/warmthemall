@@ -4,4 +4,7 @@
 <p>Email Address: {{ user_in_view.email }}</p>
 <p>First Name: {{ user_in_view.first_name }}</p>
 <p>State: {{ user_in_view.state }}</p>
+{% if user_in_view == user %}
+<p><a href="{% url 'user_update' slug=user.username %}">Edit Profile</a></p>
+{% endif %}
 {% endblock %}

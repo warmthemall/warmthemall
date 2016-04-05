@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<center><h1>Pledges</h1></center>
 {% for pledge in object_list %}
 <div class="panel">
   <h3><a href="{{ pledge.get_absolute_url }}">{{ pledge.amount }}</a></h3>

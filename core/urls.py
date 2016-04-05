@@ -19,4 +19,6 @@ urlpatterns = patterns('',
     url(r'^contribution/delete/(?P<pk>\d+)/$', login_required(ContributionDeleteView.as_view()), name='contribution_delete'),
     url(r'^pledge/delete/(?P<pk>\d+)/$', login_required(PledgeDeleteView.as_view()), name='pledge_delete'),
     url(r'^user/(?P<slug>\w+)/$', login_required(UserDetailView.as_view()), name='user_detail'),
+    url(r'^user/update/(?P<slug>\w+)/$', login_required(UserUpdateView.as_view()), name='user_form'),
+    url(r'^about_us/', AboutUsView.as_view(), name='about_us'),
 )

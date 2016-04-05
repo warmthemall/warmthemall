@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<center><h1>Contributions</h1></center>
 {% for contribution in object_list %}
 <div class="panel">
   <h3><a href="{{ contribution.get_absolute_url }}">{{ contribution.amount }}</a></h3>
