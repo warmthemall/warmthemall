@@ -7,4 +7,16 @@
   <p>Pledged by <a href="{% url 'user_detail' slug=pledge.user.username %}">{{ pledge.user.username }}</a> on {{ pledge.date }}</p>
 </div>
 {% endfor %}
+{% if is_paginated %}
+<nav>
+  <ul class="pager">
+    {% if page_obj.has_previous %}
+    <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
 {% endblock %}

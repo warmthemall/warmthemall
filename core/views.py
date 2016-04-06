@@ -33,10 +33,12 @@ class ContributionCreateView(CreateView):
 class PledgeListView(ListView):
   model = Pledge
   template_name = "pledge/pledge_list.html"
+  paginate_by = 10
 
 class ContributionListView(ListView):
   model = Contribution
   template_name = "contribution/contribution_list.html"
+  paginate_by = 10
 
 class PledgeDetailView(DetailView):
   model = Pledge
