@@ -6,5 +6,6 @@
 <p>State: {{ user_in_view.state }}</p>
 {% if user_in_view == user %}
 <p><a href="{% url 'user_update' slug=user.username %}">Edit Profile</a></p>
+<p><a href="{% url 'user_delete' slug=user.username %}">Delete Account</a></p>
 {% endif %}
 {% endblock %}

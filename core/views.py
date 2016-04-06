@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from .models import *
@@ -122,3 +122,23 @@ class SearchContributionListView(ContributionListView):
   def get_queryset(self):
     incoming_query_string = self.request.GET.get('query', '')
     return Contribution.objects.filter(notes__icontains=incoming_query_string)
+
+class UserDeleteView(DeleteView):
+  model = User
+  slug_field = "username"
+  template_name = 'user/user_confirm_delete.html'
+
+  def get_success_url(self):
+    return reverse_lazy('logout')
+
+  def get_object(self, *args, **kwargs):
+    object = super(UserDeleteView, self).get_object(*args, **kwargs)
+    if object != self.request.user:
+      raise PermissionDenied()
+    return object
+
+  def delete(self, request, *args, **kwargs):
+    user = super(UserDeleteView, self).get_object(*args)
+    user.is_active = False
+    user.save()
+    return redirect(self.get_success_url())
