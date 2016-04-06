@@ -21,4 +21,5 @@ urlpatterns = patterns('',
     url(r'^user/(?P<slug>\w+)/$', login_required(UserDetailView.as_view()), name='user_detail'),
     url(r'^user/update/(?P<slug>\w+)/$', login_required(UserUpdateView.as_view()), name='user_form'),
     url(r'^about_us/', AboutUsView.as_view(), name='about_us'),
+    url(r'^search/$', login_required(SearchContributionListView.as_view()), name='search'),
 )

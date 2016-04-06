@@ -7,6 +7,8 @@
   <p>Donated by <a href="{% url 'user_detail' slug=contribution.user.username %}">{{ contribution.user.username }}</a> on {{ contribution.date }}</p>
   <p>Details about the donations: {{ contribution.notes }}</p>
 </div>
+{% empty %}
+<p>No results found.</p>
 {% endfor %}
 {% if is_paginated %}
 <nav>

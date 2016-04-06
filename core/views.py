@@ -116,3 +116,9 @@ class UserUpdateView(UpdateView):
 
 class AboutUsView(TemplateView):
   template_name = "about_us.html"
+
+
+class SearchContributionListView(ContributionListView):
+  def get_queryset(self):
+    incoming_query_string = self.request.GET.get('query', '')
+    return Contribution.objects.filter(notes__icontains=incoming_query_string)
