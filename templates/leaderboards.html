@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<center><h1>All Time Leaderboards</h1></center>
+{% for user in object_list %}
+<div class="panel">
+  <h3><a href="{{ user.get_absolute_url }}">{{ user.username }} has donated {{ user.contributions_total }} different items {{ user.contributions_count }} time(s)</a></h3>
+{% endfor %}
+<center><h1>Monthly Leaderboards</h1></center>
+{% for user in object_list %}
+<div class="panel">
+  <h3><a href="{{ user.get_absolute_url }}">{{ user.username }} has donated {{ user.contributions_total }} different items {{ user.contributions_count }} time(s)</a></h3>
+{% endfor %}
+{% endblock %}

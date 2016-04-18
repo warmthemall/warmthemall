@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = patterns('',
     url(r'^$', Home.as_view(), name='home'),
+    url(r'^user/register/$', UserProfileRegistrationView.as_view(), name='registration_register'),                   
     url(r'^user/', include('registration.backends.simple.urls')),
     url(r'^user/', include('django.contrib.auth.urls')),
     url(r'^contribution/create/$', login_required(ContributionCreateView.as_view()), name='contribution_create'),
@@ -23,4 +24,6 @@ urlpatterns = patterns('',
     url(r'^user/delete/(?P<slug>\w+)/$', login_required(UserDeleteView.as_view()), name='user_delete'),
     url(r'^about_us/', AboutUsView.as_view(), name='about_us'),
     url(r'^search/$', login_required(SearchContributionListView.as_view()), name='search'),
+    url(r'^parent_tips/', ParentTipsView.as_view(), name='parent_tips'),
+    url(r'^leaderboards/', UserListView.as_view(), name='leaderboards'),
 )

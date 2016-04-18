@@ -4,3 +4,4 @@ from .models import *
 # Register your models here.
 admin.site.register(Contribution)
 admin.site.register(Pledge)
+admin.site.register(UserProfile)

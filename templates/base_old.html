@@ -1,0 +1,56 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Warm Them All</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+              <a href="/" class="navbar-brand">WTA</a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                  {% if user.is_authenticated %}
+                  <form action="{% url 'search' %}" class="navbar-left" method="get">
+                    <input type="text" placeholder="Search" class="form-control" name="query">
+                  </form>
+                  <li><a href="{% url 'about_us' %}">About Us</a></li>
+                  <li><a href="{% url 'parent_tips' %}">Parent Tips</a></li>
+                  <li><a href="{% url 'leaderboards' %}">Leaderboards</a></li>
+                  <li><a href="{% url 'contribution_list' %}">Contributions</a></li>
+                  <li><a href="{% url 'pledge_list' %}">Pledges</a></li>
+                  <li><a href="{% url 'contribution_create' %}">Add Contribution</a></li>
+                  <li><a href="{% url 'pledge_create' %}">Add Pledge</a></li>
+                  <li><a href="{% url 'user_detail' slug=user.username %}">Profile</a></li>
+                  <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                  {% else %}
+                  <li><a href="{% url 'about_us' %}">About Us</a></li>
+                  <li><a href="{% url 'parent_tips' %}">Parent Tips</a></li>
+                  <li><a href="{% url 'leaderboards' %}">Leaderboards</a></li>
+                  <li><a href="{% url 'auth_login' %}">Login</a></li>
+                  {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

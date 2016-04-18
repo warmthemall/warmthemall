@@ -1,16 +1,87 @@
 {% extends "base.html" %}
-{% block content %}
+{% block home %}
 {% if user.is_authenticated %}
-<center><div class="jumbotron">
+<center><div class="container">
+  <div class="intro-header">
+  <div class="intro-message">
   <h1>Welcome back!</h1>
 </div>
+  </div>
+  </div>
 </center>
 {% else %}
-<center><div class="jumbotron">
+<center><div class="container">
+  <div class="intro-header">
+  <div class="intro-message">
   <h1>Welcome to Warm Them All!</h1>
-  <p>The organization that wants to make a difference</p>
-  <p><a class="btn btn-lg btn-primary" href="{% url 'registration_register' %}">Sign up</a></p>
- </div>
+  <p><a class="btn btn-lg btn-primary"
+        href="{% url 'registration_register' %}">Sign up</a></p>
+</div>
+  </div>
+  </div>
 </center>
 {% endif %}
+<a  name="services"></a>
+    <div class="content-section-a">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Keeping Your Information Safe!<br>Our #1 Priority is to Keep You and Your Child's Information Safe</h2>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="static/img/security.png" alt="">
+                </div>
+            </div>
+
+        </div>
+
+      <div class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Friendly Competition!<br>Our Scoring System Keeps Track of Every Childs Progress!</h2>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                    <img class="img-responsive" src="static/img/podium.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+
+<!-- /.container last section -->
+
+ <div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Questions?<br>Please Click On Our "Parent Tips" Page!</h2>
+
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="static/img/questions.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+
 {% endblock %}
+

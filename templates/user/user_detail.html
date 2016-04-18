@@ -3,7 +3,15 @@
 <h1>{{ user_in_view.username }}</h1>
 <p>Email Address: {{ user_in_view.email }}</p>
 <p>First Name: {{ user_in_view.first_name }}</p>
-<p>State: {{ user_in_view.state }}</p>
+<p>State: {{ userprofile.state }}</p>
+<h3>Contributed {{ contributions.count }} time(s) for a total of {{ contributions.amount.sum }} donations</h3>
+{% for contribution in contributions %}
+  <p><a href="{{ contribution.get_absolute_url }}">{{ contribution.amount }}</a></p>
+{% endfor %}
+<h3>Pledge to donate {{ pledges.count }} time(s) for a total of {{ pledges.amount.sum }} pledges</h3>
+  {% for pledge in pledges %}
+<p><a href="{{ pledge.get_absolute_url }}">{{ pledge.amount }}</a></p>
+{% endfor %}
 {% if user_in_view == user %}
 <p><a href="{% url 'user_update' slug=user.username %}">Edit Profile</a></p>
 <p><a href="{% url 'user_delete' slug=user.username %}">Delete Account</a></p>

@@ -3,7 +3,16 @@ from django.views.generic import TemplateView, CreateView, ListView, DetailView,
 from django.core.urlresolvers import reverse_lazy
 from .models import *
 from django.core.exceptions import PermissionDenied
+from django.db import connection
+from django.db.models import Sum, Count
+from datetime import datetime
+from registration.backends.simple.views import RegistrationView
+from forms import UserProfileRegistrationForm
+from .forms import *
 
+truncate_date = connection.ops.date_trunc_sql('month', 'date')
+qs = Contribution.objects.extra({ 'month':truncate_date})
+report = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('month')
 
 # Create your views here.
 
@@ -98,12 +107,23 @@ class UserDetailView(DetailView):
   template_name = 'user/user_detail.html'
   context_object_name = 'user_in_view'
 
+  def get_context_data(self, **kwargs):
+    context = super(UserDetailView, self).get_context_data(**kwargs)
+    user_in_view = User.objects.get(username=self.kwargs['slug'])
+    contributions = Contribution.objects.filter(user=user_in_view)
+    context['contributions'] = contributions
+    pledges = Pledge.objects.filter(user=user_in_view)
+    context['pledges'] = pledges
+    userprofile = UserProfile.objects.filter(user=user_in_view)
+    context['userprofile'] = userprofile
+    return context
+
 
 class UserUpdateView(UpdateView):
   model = User
   slug_field = "username"
   template_name = "user/user_form.html"
-  fields = ['email', 'first_name', 'state']
+  form_class = UserProfileUpdateForm
 
   def get_success_url(self):
     return reverse('user_detail', args=[self.request.user.username])
@@ -116,6 +136,21 @@ class UserUpdateView(UpdateView):
 
 class AboutUsView(TemplateView):
   template_name = "about_us.html"
+
+class ParentTipsView(TemplateView):
+  template_name = "parent_tips.html"
+
+class UserListView(ListView):
+  model = User
+  template_name = 'leaderboards.html'
+
+  def get_queryset(self):
+    queryset = super(UserListView, self).get_queryset()
+    return queryset.annotate(
+        contributions_count=Count('contribution'),
+        contributions_total=Sum('contribution__amount'),
+    )
+
 
 
 class SearchContributionListView(ContributionListView):
@@ -142,3 +177,14 @@ class UserDeleteView(DeleteView):
     user.is_active = False
     user.save()
     return redirect(self.get_success_url())
+
+class UserProfileRegistrationView(RegistrationView):
+  form_class = UserProfileRegistrationForm
+
+  def register(self, request, form_class):
+    new_user = super(UserProfileRegistrationView, self).register(request, form_class)
+    user_profile = UserProfile()
+    user_profile.user = new_user
+    user_profile.state = form_class.cleaned_data['state']
+    user_profile.save()
+    return user_profile
