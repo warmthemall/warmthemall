@@ -5,14 +5,12 @@ from .models import *
 from django.core.exceptions import PermissionDenied
 from django.db import connection
 from django.db.models import Sum, Count
-from datetime import datetime
+import datetime
 from registration.backends.simple.views import RegistrationView
 from forms import UserProfileRegistrationForm
 from .forms import *
 
-truncate_date = connection.ops.date_trunc_sql('month', 'date')
-qs = Contribution.objects.extra({ 'month':truncate_date})
-report = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('month')
+
 
 # Create your views here.
 
@@ -149,8 +147,27 @@ class UserListView(ListView):
     return queryset.annotate(
         contributions_count=Count('contribution'),
         contributions_total=Sum('contribution__amount'),
-    )
+    ).order_by("-contributions_total")[:5]
 
+class MonthlyListView(ListView):
+  model = User
+  template_name = 'monthly_leaderboards.html'
+
+  def get_queryset(self):
+    queryset = super(MonthlyListView, self).get_queryset()
+    today = datetime.date.today()
+    this_month_start = today.replace(day = 1)
+    if today.month == 12:
+      next_month_start = today.replace(year=today.year + 1, month=1, day=1)
+    else:
+      next_month_start = today.replace(month=today.month + 1, day=1)
+    User.objects.filter(
+      contribution__date__gte = this_month_start,
+      contribution__date__lt = next_month_start,
+    ).annotate(
+       monthly_count=Count('contribution'),
+       monthly_total=Sum('contribution__amount')
+    ).order_by("-monthly_total")[:5]
 
 
 class SearchContributionListView(ContributionListView):
@@ -188,3 +205,6 @@ class UserProfileRegistrationView(RegistrationView):
     user_profile.state = form_class.cleaned_data['state']
     user_profile.save()
     return user_profile
+
+  def get_success_url(self, request, user):
+        return reverse_lazy('home')
