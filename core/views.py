@@ -168,6 +168,7 @@ class MonthlyListView(ListView):
        monthly_count=Count('contribution'),
        monthly_total=Sum('contribution__amount')
     ).order_by("-monthly_total")[:5]
+    return queryset
 
 
 class SearchContributionListView(ContributionListView):

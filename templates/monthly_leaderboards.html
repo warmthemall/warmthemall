@@ -6,4 +6,5 @@
   <h3><a href="{{ user.get_absolute_url }}">{{ user.username }} has donated {{ user.monthly_total }} different items {{ user.monthly_count }} time(s)</a></h3>
 </div></center>
 {% endfor %}
+<center><h4>Back to the <a href="{% url 'leaderboards' %}">All Time Leaderboard</a></h4></center>
 {% endblock %}
